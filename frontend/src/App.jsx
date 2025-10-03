@@ -10,6 +10,12 @@ function App() {
   const [mnemonic, setMnemonic] = useState("");
   const [copied, setCopied] = useState(false);
 
+  // load mnemonic from localStorage if present
+  useEffect(() => {
+    const stored = localStorage.getItem('wbw.mnemonic');
+    if (stored) setMnemonic(stored);
+  }, []);
+
   useEffect(() => {
     // Force-enable dark theme by adding the class to <html>
     document.documentElement.classList.add('dark');
@@ -25,7 +31,7 @@ function App() {
             onClick={async function () {
               const mn = await generateMnemonic();
               setMnemonic(mn);
-              
+              localStorage.setItem('wbw.mnemonic', mn);
             }}
             className="w-full"
           >
@@ -69,7 +75,17 @@ function App() {
               {copied ? '✓ Copied' : 'Copy All'}
             </Button>
 
-            
+            <div style={{ marginTop: '8px' }}>
+              <Button
+                onClick={() => {
+                  setMnemonic('');
+                  localStorage.removeItem('wbw.mnemonic');
+                }}
+                className="w-full"
+              >
+                Clear Stored Seed (This device)
+              </Button>
+            </div>
           </div>
         </div>
       </div>
