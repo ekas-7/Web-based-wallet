@@ -38,7 +38,7 @@ export default function PhaseGrid({ mnemonic = "" }) {
       {/* Single grid with spacing between all 12 cards */}
       <div className="grid grid-cols-4 gap-6"> 
         {items.map((item) => (
-          <div key={item.id} className="flex items-stretch" aria-label={`Phase ${item.id} placeholder`}>
+          <div key={item.id} style={{ margin: '4px' ,marginRight:'2px'}} className="flex items-stretch" aria-label={`Phase ${item.id} placeholder`}>
             <div className="w-full rounded-lg border border-border bg-card p-4 flex flex-col justify-between h-full shadow-sm transition-shadow hover:shadow-md">
               <div>
                 <div className="text-sm text-muted-foreground">{`Word ${item.id}`}</div>
