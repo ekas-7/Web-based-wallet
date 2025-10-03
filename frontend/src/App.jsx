@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { Button } from '@/components/ui/button'
 import PhaseGrid from './components/PhaseGrid'
-import { generateMnemonic } from "bip39";
+import { generateMnemonic, validateMnemonic } from "bip39";
 import { EthWallet } from './wallets/ethwallet'
 import { SolanaWallet } from './wallets/solwallet'
 
 function App() {
   const [mnemonic, setMnemonic] = useState("");
   const [copied, setCopied] = useState(false);
+  const [recoveryText, setRecoveryText] = useState('');
 
   // load mnemonic from localStorage if present
   useEffect(() => {
@@ -94,6 +95,37 @@ function App() {
         <h2 className="text-lg font-semibold mb-3">Seed Phrase</h2>
         <div className="bg-muted rounded-md p-4 font-mono text-sm break-words leading-relaxed">
           {mnemonic || <em className="text-muted-foreground">Generate a seed phrase to get started</em>}
+        </div>
+      </div>
+
+      <div className="mb-8 p-6 bg-card rounded-lg border border-border">
+        <h2 className="text-lg font-semibold mb-3">Recover Seed Phrase</h2>
+        <div className="flex flex-col gap-2">
+          <textarea
+            value={recoveryText}
+            onChange={(e) => setRecoveryText(e.target.value)}
+            placeholder="Paste your 12/24-word seed phrase here"
+            className="w-full p-2 rounded-md bg-muted text-sm font-mono"
+            rows={3}
+          />
+          <div className="flex gap-2">
+            <Button onClick={() => {
+              if (!recoveryText) return alert('Paste a seed phrase first');
+              try {
+                // Normalize common user input problems: trim, lowercase, Unicode NFKD
+                const candidate = recoveryText.trim().toLowerCase().normalize('NFKD');
+                const valid = validateMnemonic(candidate);
+                if (!valid) return alert('Invalid seed phrase (check words and order)');
+                setMnemonic(candidate);
+                localStorage.setItem('wbw.mnemonic', candidate);
+                alert('Seed restored on this device');
+              } catch (e) {
+                console.error(e);
+                alert('Failed to validate seed phrase');
+              }
+            }} className="px-4">Restore Seed</Button>
+            <Button onClick={() => setRecoveryText('')} className="px-4">Clear</Button>
+          </div>
         </div>
       </div>
       <PhaseGrid mnemonic={mnemonic} />
