@@ -33,7 +33,7 @@ function App() {
         <strong>Mnemonic:</strong>
         <div className="break-words max-w-2xl">{mnemonic || <em>not set</em>}</div>
       </div>
-
+      <PhaseGrid mnemonic={mnemonic} />
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
         <div>
           <h2 className="text-xl font-semibold mb-2">Ethereum</h2>
@@ -45,7 +45,7 @@ function App() {
         </div>
       </div>
 
-      <PhaseGrid mnemonic={mnemonic} />
+      
     </div>
   )
 }

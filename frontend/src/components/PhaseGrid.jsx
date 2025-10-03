@@ -19,7 +19,7 @@ export default function PhaseGrid({ mnemonic = "" }) {
   return (
     <section className="w-full">
       <h3 className="mb-4 text-lg font-semibold">Phases</h3>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         {items.map((it) => (
           <div key={it.id} className="flex items-stretch" aria-label={`Phase ${it.id} placeholder`}>
             <div className="w-full rounded-lg border border-border bg-card p-4 flex flex-col justify-between h-full">
@@ -29,14 +29,7 @@ export default function PhaseGrid({ mnemonic = "" }) {
                   {it.word || <span className="text-muted-foreground">(empty)</span>}
                 </div>
               </div>
-              <div className="mt-4 flex items-center justify-between gap-2">
-                <Button size="sm" variant="outline" className="flex-1">
-                  Copy
-                </Button>
-                <Button size="sm" variant="ghost" className="w-10">
-                  ▶
-                </Button>
-              </div>
+              
             </div>
           </div>
         ))}
