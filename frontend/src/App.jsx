@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import { Button } from '@/components/ui/button'
 import { generateMnemonic } from "bip39";
 import { EthWallet } from './wallets/ethwallet'
 import { SolanaWallet } from './wallets/solwallet'
@@ -12,12 +13,12 @@ function App() {
       <h1>Web3 Wallet (Demo)</h1>
 
       <div style={{ marginBottom: 12 }}>
-        <button onClick={async function() {
+        <Button onClick={async function() {
           const mn = await generateMnemonic();
           setMnemonic(mn)
         }}>
           Create Seed Phrase
-        </button>
+        </Button>
       </div>
 
       <div style={{ marginBottom: 12 }}>

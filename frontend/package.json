@@ -10,14 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "@solana/web3.js": "^1.73.0",
+    "bip32": "^2.0.6",
     "bip39": "^3.1.0",
-  "bip32": "^2.0.6",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "ed25519-hd-key": "^1.0.3",
     "ethers": "^6.9.0",
-    "@solana/web3.js": "^1.73.0",
-    "tweetnacl": "^1.0.3",
+    "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "tailwind-merge": "^3.3.1",
+    "tailwindcss-animate": "^1.0.7",
+    "tweetnacl": "^1.0.3",
     "vite-plugin-node-polyfills": "^0.24.0"
   },
   "devDependencies": {
