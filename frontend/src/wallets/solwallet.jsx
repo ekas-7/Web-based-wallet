@@ -35,7 +35,7 @@ export function SolanaWallet({ mnemonic }) {
     }
 
     return (
-        <div className="space-y-4" style={{ margin: '5px' }}>
+        <div className="space-y-4" style={{ margin: '20px' }}>
             <Button className="w-full" onClick={async function() {
                 if (!mnemonic) return alert('Set mnemonic first');
                 const seedBuffer = await mnemonicToSeed(mnemonic);
@@ -58,12 +58,12 @@ export function SolanaWallet({ mnemonic }) {
                 Add SOL Wallet
             </Button>
 
-            <div className="space-y-2" style={{ margin: '5px' }}>
+            <div className="space-y-2" style={{ margin: '20px' }}>
                 {wallets.map((w, i) => (
-                    <div key={`${w.publicKey}-${i}`} className="p-3 bg-muted rounded-md border" style={{ marginTop:'15px',marginBottom:'15px'}}>
-                        <div className="text-xs text-muted-foreground mb-1" style={{ margin: '5px' }}>Wallet {i + 1}</div>
+                    <div key={`${w.publicKey}-${i}`} className="p-3 bg-muted rounded-md border" style={{ margin: '15px' }}>
+                        <div className="text-xs text-muted-foreground mb-1" style={{ margin: '8px' }}>Wallet {i + 1}</div>
 
-                        <div className="mb-2" style={{ margin: '5px' }}>
+                        <div className="mb-2" style={{ margin: '8px' }}>
                             <div className="text-[10px] text-muted-foreground">Public Key</div>
                             <div className="font-mono text-sm break-all">{w.publicKey}</div>
                             <div className="mt-2 flex gap-2" style={{ margin: '5px' }}>

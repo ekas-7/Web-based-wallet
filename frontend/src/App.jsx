@@ -23,11 +23,11 @@ function App() {
   }, []);
 
   return (
-    <div style={{ marginBottom: '20px' }} className="p-6 min-h-screen max-w-6xl mx-auto">
+    <div className="p-6 min-h-screen max-w-6xl mx-auto mb-5">
       <h1 className="text-3xl font-extrabold mb-8 text-center">Web3 Wallet (Demo)</h1>
 
       <div className="mb-8 flex flex-col sm:flex-row justify-center items-center gap-6 max-w-md mx-auto">
-        <div style={{ marginBottom: '20px' }} className="w-full mb-6 sm:mb-0">
+        <div style={{ margin: '10px' }} className="w-full mb-6 sm:mb-0">
           <Button
             onClick={async function () {
               const mn = await generateMnemonic();
@@ -40,7 +40,7 @@ function App() {
           </Button>
         </div>
 
-        <div style={{ marginBottom: '20px' }} className="w-full mb-6 sm:mb-0">
+        <div style={{ margin: '20px' }} className="w-full mb-6 sm:mb-0">
           <div className="flex flex-col">
             <Button
               onClick={async function () {
@@ -72,11 +72,12 @@ function App() {
               disabled={!mnemonic}
               className="w-full"
               aria-pressed={copied}
+              style={{ marginBottom: '20px' }}
             >
               {copied ? '✓ Copied' : 'Copy All'}
             </Button>
 
-            <div style={{ marginTop: '8px' }}>
+            <div style={{ margin: '8px' }}>
               <Button
                 onClick={() => {
                   setMnemonic('');
@@ -98,7 +99,7 @@ function App() {
         </div>
       </div>
 
-      <div className="mb-8 p-6 bg-card rounded-lg border border-border">
+      <div className="mb-8 p-6 bg-card rounded-lg border border-border" style={{ marginTop: '20px' }}>
         <h2 className="text-lg font-semibold mb-3">Recover Seed Phrase</h2>
         <div className="flex flex-col gap-2">
           <textarea
@@ -108,8 +109,8 @@ function App() {
             className="w-full p-2 rounded-md bg-muted text-sm font-mono"
             rows={3}
           />
-          <div className="flex gap-2">
-            <Button onClick={() => {
+          <div className="flex gap-2 p-t-10">
+            <Button style={{ margin: '5px' }} onClick={() => {
               if (!recoveryText) return alert('Paste a seed phrase first');
               try {
                 // Normalize common user input problems: trim, lowercase, Unicode NFKD
@@ -123,8 +124,9 @@ function App() {
                 console.error(e);
                 alert('Failed to validate seed phrase');
               }
+              
             }} className="px-4">Restore Seed</Button>
-            <Button onClick={() => setRecoveryText('')} className="px-4">Clear</Button>
+            <Button style={{ margin: '5px' }} onClick={() => setRecoveryText('')} className="px-4">Clear</Button>
           </div>
         </div>
       </div>
