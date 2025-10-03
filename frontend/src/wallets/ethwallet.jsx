@@ -32,7 +32,7 @@ export const EthWallet = ({ mnemonic }) => {
     }
 
     return (
-        <div className="space-y-4">
+    <div className="space-y-4" style={{ margin: '5px' }}>
             <Button
                 className="w-full"
                 onClick={function () {
@@ -55,15 +55,15 @@ export const EthWallet = ({ mnemonic }) => {
                 Add ETH Wallet
             </Button>
 
-            <div className="space-y-2">
+            <div className="space-y-2" style={{ margin: '5px' }}>
                 {wallets.map((w, i) => (
-                    <div key={`${w.address}-${i}`} className="p-3 bg-muted rounded-md border">
-                        <div className="text-xs text-muted-foreground mb-1">Wallet {i + 1}</div>
+                    <div key={`${w.address}-${i}`} className="p-3 bg-muted rounded-md border" style={{ marginTop:'15px',marginBottom:'15px'}}>
+                        <div className="text-xs text-muted-foreground mb-1" style={{ margin: '5px' }}>Wallet {i + 1}</div>
 
-                        <div className="mb-2">
+                        <div className="mb-2" style={{ margin: '5px' }}>
                             <div className="text-[10px] text-muted-foreground">Address</div>
                             <div className="font-mono text-sm break-all">{w.address}</div>
-                            <div className="mt-2 flex gap-2">
+                            <div className="mt-2 flex gap-2" style={{ margin: '5px' }}>
                                 <Button size="sm" className="px-2" onClick={async () => { await copyText(w.address); }}>Copy Address</Button>
                             </div>
                         </div>
@@ -73,13 +73,13 @@ export const EthWallet = ({ mnemonic }) => {
                             <div className="font-mono text-sm break-all">
                                 {w.revealed ? w.privateKey : '••••••••••••••••••••••'}
                             </div>
-                            <div className="mt-2 flex gap-2">
-                                <Button size="sm" className="px-2" onClick={async () => {
+                            <div className="mt-2 flex gap-2" style={{ margin: '5px' }}>
+                                <Button size="sm"  style={{ margin: '5px' }} className="px-2" onClick={async () => {
                                     // toggle reveal
                                     setWallets(prev => prev.map((item, idx) => idx === i ? { ...item, revealed: !item.revealed } : item));
                                 }}>{w.revealed ? 'Hide' : 'Reveal'}</Button>
 
-                                <Button size="sm" className="px-2" onClick={async () => { await copyText(w.privateKey); }}>Copy Private</Button>
+                                <Button style={{ margin: '5px' }} size="sm" className="px-2" onClick={async () => { await copyText(w.privateKey); }}>Copy Private</Button>
                             </div>
                         </div>
                     </div>
