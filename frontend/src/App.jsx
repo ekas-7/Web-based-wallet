@@ -8,7 +8,6 @@ import { SolanaWallet } from './wallets/solwallet'
 
 function App() {
   const [mnemonic, setMnemonic] = useState("");
-  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // Force-enable dark theme by adding the class to <html>
@@ -18,45 +17,16 @@ function App() {
   return (
     <div className="p-6 min-h-screen">
       <h1 className="text-3xl font-extrabold mb-4">Web3 Wallet (Demo)</h1>
-
+    
       <div className="mb-4">
-        <div className="flex items-center space-x-2">
-          <Button
-            onClick={async function () {
-              const mn = await generateMnemonic();
-              setMnemonic(mn);
-            }}
-          >
-            Create Seed Phrase
-          </Button>
-
-          <Button
-            onClick={async function () {
-              if (!mnemonic) return;
-              try {
-                await navigator.clipboard.writeText(mnemonic);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              } catch (e) {
-                // clipboard may be unavailable in some contexts; fallback to selection
-                const textarea = document.createElement('textarea');
-                textarea.value = mnemonic;
-                document.body.appendChild(textarea);
-                textarea.select();
-                try {
-                  document.execCommand('copy');
-                  setCopied(true);
-                  setTimeout(() => setCopied(false), 2000);
-                } finally {
-                  document.body.removeChild(textarea);
-                }
-              }
-            }}
-            disabled={!mnemonic}
-          >
-            {copied ? 'Copied' : 'Copy All'}
-          </Button>
-        </div>
+        <Button
+          onClick={async function () {
+            const mn = await generateMnemonic();
+            setMnemonic(mn);
+          }}
+        >
+          Create Seed Phrase
+        </Button>
       </div>
 
       <div className="mb-6">
