@@ -11,6 +11,10 @@
   },
   "dependencies": {
     "bip39": "^3.1.0",
+    "ed25519-hd-key": "^1.0.3",
+    "ethers": "^6.9.0",
+    "@solana/web3.js": "^1.73.0",
+    "tweetnacl": "^1.0.3",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "vite-plugin-node-polyfills": "^0.24.0"

@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { mnemonicToSeed } from "bip39";
-import { Wallet, HDNodeWallet } from "ethers";
+import { Wallet } from "ethers";
 
 export const EthWallet = ({mnemonic}) => {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -8,20 +7,18 @@ export const EthWallet = ({mnemonic}) => {
 
     return (
         <div>
-            <button onClick={async function() {
-                const seed = await mnemonicToSeed(mnemonic);
-                const derivationPath = `m/44'/60'/${currentIndex}'/0'`;
-                 const hdNode = HDNodeWallet.fromSeed(seed);
-                 const child = hdNode.derivePath(derivationPath);
-                 const privateKey = child.privateKey;
-                 const wallet = new Wallet(privateKey);
-                 setCurrentIndex(currentIndex + 1);
-                setAddresses([...addresses, wallet.address]);
+            <button onClick={function() {
+                if (!mnemonic) return alert('Set mnemonic first');
+                const derivationPath = `m/44'/60'/${currentIndex}'/0/0`;
+                // Use ethers Wallet helper to derive from mnemonic + path
+                const wallet = Wallet.fromPhrase(mnemonic, derivationPath);
+                setCurrentIndex(prev => prev + 1);
+                setAddresses(prev => [...prev, wallet.address]);
             }}>
                 Add ETH wallet
             </button>
 
-            {addresses.map(p => <div>
+            {addresses.map((p, i) => <div key={i}>
                 Eth - {p}
             </div>)}
         </div>
