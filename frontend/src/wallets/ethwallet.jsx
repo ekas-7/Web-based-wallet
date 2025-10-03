@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { HDNodeWallet } from "ethers";
+import { Button } from "@/components/ui/button";
 
 export const EthWallet = ({ mnemonic }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [addresses, setAddresses] = useState([]);
 
     return (
-        <div>
-            <button
+        <div className="space-y-4">
+            <Button
+                className="w-full"
                 onClick={function () {
                     if (!mnemonic) return alert("Set mnemonic first");
                     
@@ -26,13 +28,17 @@ export const EthWallet = ({ mnemonic }) => {
                     setAddresses((prev) => [...prev, address]);
                 }}
             >
-                Add ETH wallet
-            </button>
+                Add ETH Wallet
+            </Button>
 
-            {addresses.map((p, i) => (
-                // use a stable key using the address + index
-                <div key={`${p}-${i}`}>Eth - {p}</div>
-            ))}
+            <div className="space-y-2">
+                {addresses.map((p, i) => (
+                    <div key={`${p}-${i}`} className="p-3 bg-muted rounded-md border">
+                        <div className="text-xs text-muted-foreground mb-1">Wallet {i + 1}</div>
+                        <div className="font-mono text-sm break-all">{p}</div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
