@@ -8,6 +8,7 @@ import { SolanaWallet } from './wallets/solwallet'
 
 function App() {
   const [mnemonic, setMnemonic] = useState("");
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     // Force-enable dark theme by adding the class to <html>
@@ -17,8 +18,8 @@ function App() {
   return (
     <div className="p-6 min-h-screen">
       <h1 className="text-3xl font-extrabold mb-4">Web3 Wallet (Demo)</h1>
-    
-      <div className="mb-4">
+
+  <div className="mb-4 flex justify-around items-center gap-6 mx-auto">
         <Button
           onClick={async function () {
             const mn = await generateMnemonic();
@@ -27,6 +28,42 @@ function App() {
         >
           Create Seed Phrase
         </Button>
+
+        <Button
+          onClick={async function () {
+            if (!mnemonic) return;
+            // Try navigator.clipboard first
+            try {
+              await navigator.clipboard.writeText(mnemonic);
+            } catch (err) {
+              // Fallback for older browsers
+              try {
+                const textarea = document.createElement('textarea');
+                textarea.value = mnemonic;
+                textarea.setAttribute('readonly', '');
+                textarea.style.position = 'absolute';
+                textarea.style.left = '-9999px';
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+              } catch (e) {
+                console.error('Copy failed', e);
+                return;
+              }
+            }
+
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+          }}
+          disabled={!mnemonic}
+        >
+          Copy All
+        </Button>
+
+        {copied && (
+          <span className="ml-2 text-sm text-green-400" aria-live="polite">Copied!</span>
+        )}
       </div>
 
       <div className="mb-6">

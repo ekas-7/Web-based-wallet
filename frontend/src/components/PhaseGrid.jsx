@@ -25,13 +25,8 @@ export default function PhaseGrid({ mnemonic = "" }) {
   }));
 
   // 3. Structure Items into Rows (The main difference)
-  const rows = [];
-  for (let i = 0; i < NUM_ROWS; i++) {
-    // Slice out the 4 items for the current row
-    const start = i * NUM_COLUMNS;
-    const end = start + NUM_COLUMNS;
-    rows.push(flatItems.slice(start, end));
-  }
+  // We will render all items in a single grid of 4 columns (12 cards)
+  const items = flatItems;
 
 
   // --- Render ---
@@ -40,22 +35,18 @@ export default function PhaseGrid({ mnemonic = "" }) {
       <h3 className="mb-4 text-lg font-semibold">Phases (Alternative Grid)</h3>
       
       {/* Outer container remains a flex column, or just the section itself */}
-      <div className="flex flex-col gap-4"> 
-        {rows.map((row, rowIndex) => (
-          // Use 'grid' for the row, explicitly defining the columns for better semantic grouping
-          <div key={rowIndex} className="grid grid-cols-4 gap-4"> 
-            {row.map((item) => (
-              <div key={item.id} className="flex items-stretch" aria-label={`Phase ${item.id} placeholder`}>
-                <div className="w-full rounded-lg border border-border bg-card p-4 flex flex-col justify-between h-full shadow-sm transition-shadow hover:shadow-md">
-                  <div>
-                    <div className="text-sm text-muted-foreground">{`Word ${item.id}`}</div>
-                    <div className="mt-1 text-xl font-medium break-words">
-                      {item.word || <span className="text-muted-foreground opacity-70">(empty)</span>}
-                    </div>
-                  </div>
+      {/* Single grid with spacing between all 12 cards */}
+      <div className="grid grid-cols-4 gap-6"> 
+        {items.map((item) => (
+          <div key={item.id} className="flex items-stretch" aria-label={`Phase ${item.id} placeholder`}>
+            <div className="w-full rounded-lg border border-border bg-card p-4 flex flex-col justify-between h-full shadow-sm transition-shadow hover:shadow-md">
+              <div>
+                <div className="text-sm text-muted-foreground">{`Word ${item.id}`}</div>
+                <div className="mt-1 text-xl font-medium break-words">
+                  {item.word || <span className="text-muted-foreground opacity-70">(empty)</span>}
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         ))}
       </div>
