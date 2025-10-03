@@ -1,10 +1,21 @@
-import React from 'react'
-import './index.css'
+import { useState } from 'react'
+import './App.css'
+import { generateMnemonic } from "bip39";
 
-export default function App() {
+function App() {
+   const [mnemonic, setMnemonic] = useState("");
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
-      <h1 className="text-4xl font-bold text-gray-900 dark:text-white">Hello World</h1>
-    </div>
+    <>
+
+<button onClick={async function() {
+  const mn = await generateMnemonic();
+  setMnemonic(mn)
+}}>
+  Create Seed Phrase
+</button>
+    </>
   )
 }
+
+export default App
